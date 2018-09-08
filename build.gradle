@@ -1,0 +1,53 @@
+import groovyx.net.http.RESTClient
+import static groovyx.net.http.ContentType.JSON
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+buildscript {
+ 	repositories {
+      		jcenter()
+      		mavenCentral()
+  	}
+	dependencies {
+		classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
+	}   
+}
+
+group = 'mft-logger'
+version = '1.0.0'
+
+apply plugin: 'java'
+
+task readFileContentAndUpload() {
+
+    	println "Executing Read and File Upload to MFT task..."
+
+    	//Read the File which have the template of the project MFT.
+    	def filename = 'projects/TestUploadProjectMFT.xml'
+    
+	// read all the content of the file into a single string
+	File file = new File(filename);
+	def fileContent = file.getText('UTF-8');
+
+        println "File Content: " + fileContent; 
+
+        String encodedFileContent = fileContent.bytes.encodeBase64().toString();
+
+	println "File Content Encoded: " + encodedFileContent;
+
+        //Execute the REST call of Import project to MFT Server
+
+        def url = "http://127.0.1.1:18000";
+	def client = new RESTClient(url)
+
+        def jsonString = '{"importParameters" : { "file": "' + encodedFileContent + '","domain":"Default","ignoreCompileErrors":"true","replaceProject":"true","createTargetFolder":"true","targetFolder" : "/"}}';
+
+	def jsonObj = new JsonSlurper().parseText(jsonString);
+	def response = client.post(path: "/goanywhere/rest/gacmd/v1/projects",
+	  contentType: JSON,
+	  body: jsonObj,
+	  headers: [Authorization: 'Basic YWRtaW5pc3RyYXRvcjpnb2FueXdoZXJl']);
+
+	println("Status: " + response.status);
+	
+}
