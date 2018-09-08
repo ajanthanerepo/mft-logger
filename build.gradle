@@ -9,7 +9,7 @@ buildscript {
       		mavenCentral()
   	}
 	dependencies {
-		compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
+		classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
 	}   
 }
 
@@ -17,6 +17,7 @@ group = 'mft-logger'
 version = '1.0.0'
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 
 task readFileContentAndUpload() {
 
