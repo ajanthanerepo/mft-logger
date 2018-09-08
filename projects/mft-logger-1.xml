@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mft-logger-1" mainModule="Main" version="2.0" logLevel="verbose">
+ <description>This is a sample MFT project</description>
+
+ <module name="Main">
+
+  <timestamp version="1.0" />
+
+
+  <print label="Print Date and Time" version="1.0">
+   <![CDATA[The Current Date Time is: ${system.currentTimestamp}]]>
+  </print>
+
+ </module>
+
+</project>

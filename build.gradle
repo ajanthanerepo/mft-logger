@@ -23,7 +23,7 @@ task readFileContentAndUpload() {
     	println "Executing Read and File Upload to MFT task..."
 
     	//Read the File which have the template of the project MFT.
-    	def filename = 'projects/TestUploadProjectMFT.xml'
+    	def filename = 'projects/mft-logger-1.xml'
     
 	// read all the content of the file into a single string
 	File file = new File(filename);
