@@ -1,22 +1,5 @@
-import groovyx.net.http.RESTClient
-import static groovyx.net.http.ContentType.JSON
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
-buildscript {
- 	repositories {
-      		mavenCentral()                
-  	}
-	dependencies {
-		classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-	}   
-}
-
 group = 'mft-logger'
 version = '1.0.0'
-
-apply plugin: 'java'
-apply plugin: 'groovy'
 
 task readFileContentAndUpload() {
 
@@ -35,19 +18,22 @@ task readFileContentAndUpload() {
 
 	println "File Content Encoded: " + encodedFileContent;
 
-        //Execute the REST call of Import project to MFT Server
-
-        def url = "http://127.0.1.1:18000";
-	def client = new RESTClient(url)
+        //Execute the REST call of Import project to MFT Server        
 
         def jsonString = '{"importParameters" : { "file": "' + encodedFileContent + '","domain":"Default","ignoreCompileErrors":"true","replaceProject":"true","createTargetFolder":"true","targetFolder" : "/"}}';
 
-	def jsonObj = new JsonSlurper().parseText(jsonString);
-	def response = client.post(path: "/goanywhere/rest/gacmd/v1/projects",
-	  contentType: JSON,
-	  body: jsonObj,
-	  headers: [Authorization: 'Basic YWRtaW5pc3RyYXRvcjpnb2FueXdoZXJl']);
-
-	println("Status: " + response.status);
+	// POST
+	def post = new URL("http://127.0.1.1:18000/goanywhere/rest/gacmd/v1/projects").openConnection();
+	def message = jsonString;
+	post.setRequestMethod("POST")
+	post.setDoOutput(true)
+	post.setRequestProperty("Content-Type", "application/json")
+	post.setRequestProperty("Authorization", "Basic YWRtaW5pc3RyYXRvcjpnb2FueXdoZXJl")
+	post.getOutputStream().write(message.getBytes("UTF-8"));
+	def postRC = post.getResponseCode();
+	println(postRC);
+	if(postRC.equals(201)) {
+	    println("Successfully MFT Project Created or Updated");
+	}
 	
 }
