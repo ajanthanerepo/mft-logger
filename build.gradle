@@ -5,7 +5,9 @@ import groovy.json.JsonOutput
 
 buildscript {
  	repositories {
-      		maven { url 'https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder' }
+      		jcenter()
+      		mavenCentral()
+                maven { url 'https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder' }
 
   	}
 	dependencies {
@@ -17,6 +19,10 @@ group = 'mft-logger'
 version = '1.0.0'
 
 apply plugin: 'java'
+
+dependencies {
+	compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.6'
+}
 
 task readFileContentAndUpload() {
 
