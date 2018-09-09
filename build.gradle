@@ -19,10 +19,7 @@ group = 'mft-logger'
 version = '1.0.0'
 
 apply plugin: 'java'
-
-dependencies {
-	compile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.6'
-}
+apply plugin: 'groovy'
 
 task readFileContentAndUpload() {
 
