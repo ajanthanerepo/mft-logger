@@ -5,13 +5,10 @@ import groovy.json.JsonOutput
 
 buildscript {
  	repositories {
-      		jcenter()
-      		mavenCentral()
-                maven { url 'https://mvnrepository.com/artifact/org.codehaus.groovy.modules.http-builder/http-builder' }
-
+      		mavenCentral()                
   	}
 	dependencies {
-		classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+		classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
 	}   
 }
 
