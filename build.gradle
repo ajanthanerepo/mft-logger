@@ -10,7 +10,7 @@ buildscript {
   	}
 	dependencies {
 		classpath ('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2')  {
-                exclude group: 'org.codehaus.groovy', modules: 'groovy'
+                exclude group: 'org.codehaus.groovy', module: 'groovy'
         }
 	}   
 }
@@ -22,7 +22,7 @@ apply plugin: 'java'
 
 dependencies {
 	compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'){
-                exclude group: 'org.codehaus.groovy', modules: 'groovy'
+                exclude group: 'org.codehaus.groovy', module: 'groovy'
         }
 }
 
